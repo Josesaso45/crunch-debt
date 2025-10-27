@@ -17,15 +17,13 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <DashboardLayout>
-          <Routes>
-            <Route path="/" element={<VistaEjecutiva />} />
-            <Route path="/operativa" element={<VistaOperativa />} />
-            <Route path="/detalle" element={<VistaDetalle />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </DashboardLayout>
+        <Routes>
+          <Route element={<DashboardLayout><VistaEjecutiva /></DashboardLayout>} path="/" />
+          <Route element={<DashboardLayout><VistaOperativa /></DashboardLayout>} path="/operativa" />
+          <Route element={<DashboardLayout><VistaDetalle /></DashboardLayout>} path="/detalle" />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
