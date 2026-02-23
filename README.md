@@ -1,73 +1,65 @@
-# Welcome to your Lovable project
+# Crunch Debt - Sistema de Gestión de Cobranzas
 
-## Project info
+Sistema integral para la automatización del ciclo de ventas y cobranzas, diseñado para optimizar la trazabilidad de letras por pagar y mejorar la liquidez organizacional.
 
-**URL**: https://lovable.dev/projects/4d1c5598-2092-4037-b372-cf20d8e444d2
+## 🚀 Tecnologías Utilizadas
 
-## How can I edit this code?
+### Frontend
+- **Framework:** React con Vite
+- **Lenguaje:** TypeScript
+- **Estilos:** Tailwind CSS / shadcn/ui
 
-There are several ways of editing your application.
+### Backend
+- **Framework:** Spring Boot 3.2.2
+- **Lenguaje:** Java 17
+- **Persistencia:** Spring Data JPA / Hibernate
+- **Gestión de Dependencias:** Maven
 
-**Use Lovable**
+### Base de Datos
+- **Gestor:** MySQL 8.0+ / PostgreSQL (Supabase)
+- **Modelado:** Scripts de migración en `supabase/migrations/`
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/4d1c5598-2092-4037-b372-cf20d8e444d2) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛠️ Cómo arrancar la aplicación
 
-**Use your preferred IDE**
+### 1. Requisitos Previos
+- Node.js (v18+)
+- Java JDK 17
+- Maven (opcional, se puede usar el wrapper `./mvnw`)
+- Servidor MySQL activo
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 2. Configuración de la Base de Datos
+1. Crea una base de datos llamada `crunch_debt` en tu servidor MySQL.
+2. Ejecuta el script de modelado: `supabase/migrations/Modelado_de_Datos_Mysql.sql`.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
+### 3. Ejecutar el Backend (Java)
+Navega a la carpeta del backend y arranca el servicio:
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+cd backend
+# En Windows
+mvnw.cmd spring-boot:run
+# En Linux/Mac
+./mvnw spring-boot:run
+```
+El backend estará disponible por defecto en `http://localhost:8080` (configurado en `application.properties`).
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### 4. Ejecutar el Frontend (React)
+Desde la raíz del proyecto (donde se encuentra `package.json`):
+```sh
+# Instalar dependencias (solo la primera vez)
+npm install
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Iniciar servidor de desarrollo
 npm run dev
 ```
+La aplicación web se abrirá usualmente en `http://localhost:5173`.
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 📄 Documentación
+Toda la documentación del proyecto, incluyendo el Proceso Unificado Ágil (AUP) y el Informe Final de Cibertec, se encuentra en la carpeta:
+- `Documentacion_Proyecto/EFRSIV_Proyecto_Cobranzas.md`
 
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/4d1c5598-2092-4037-b372-cf20d8e444d2) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## 📝 Historial de Cambios
+Consulta el archivo [CHANGELOG.md](./CHANGELOG.md) para ver la evolución del proyecto.
