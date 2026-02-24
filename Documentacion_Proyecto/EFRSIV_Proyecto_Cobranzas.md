@@ -24,8 +24,10 @@
    - 2.5. Beneficiarios
 4. [CAPÍTULO 3. DESARROLLO DEL PROYECTO](#capítulo-3-desarrollo-del-proyecto)
    - 3.1. Arquitectura del Proyecto
-   - 3.2. Diagramas de Proceso (Mermaid)
-   - 3.3. Evaluación Tecnológica
+   - 3.2. Modelo de Datos
+   - 3.3. Diagramas de Proceso
+   - 3.4. Producto
+   - 3.5. Recursos
 5. [CONCLUSIONES](#conclusiones)
 6. [RECOMENDACIONES](#recomendaciones)
 7. [ANEXOS](#anexos)
@@ -219,7 +221,43 @@ stateDiagram-v2
     Pagada --> [*]
 ```
 
+### 3.4. Producto
+
+A continuación se detallan los entregables técnicos del sistema, desarrollados bajo pautas de alta cohesión y bajo acoplamiento:
+
+*   **Diagramas de análisis y diseño:** Presentados en la sección 3.3 (Actividades, Secuencia y Estados). Estos diagramas reflejan la lógica de negocio *Core* del sistema, específicamente la gestión del ciclo de vida de la factura y la letra por cobrar.
+*   **Módulos, modelos y componentes desarrollados:**
+    *   **Backend (Spring Boot):** Módulo de Entidades Financieras y Facturación. Desarrollo de Controladores REST (p. ej. `ClienteController`), Entidades JPA (`Factura`, `Letra`, `Pago`, `Vendedor`, `Cliente`) y persistencia vía interfaces `JpaRepository`.
+    *   **Frontend (React/Vite):** Arquitectura basada en componentes de UI (`shadcn-ui`), enrutamiento estructurado y consumo de APIs mediante promesas.
+    *   **Base de Datos:** Modelo relacional completo para almacenamiento persistente y trazabilidad transaccional.
+*   **Archivos de creación y configuración de los componentes:**
+    *   `docker-compose.yml`: Orquestador principal de servicios, enlaza el Frontend, Backend y Base de Datos en una red virtual aislada.
+    *   `backend/Dockerfile` y `Dockerfile` (raíz): Definición multi-etapa de contenedores ligeros para Java (Eclipse Temurin) y Node.js respectivamente.
+    *   `application.properties`: Configuración unificada de conexión a datos y mapeo objeto-relacional (Hibernate).
+    *   `pom.xml` y `package.json`: Gestores de dependencias empaquetadas.
+*   **Archivos de pruebas o medios de validación de resultados:**
+    *   Scripts de inicialización y Mock Data (`Data_de_Prueba.sql`) para poblar la base de datos automáticamente con escenarios controlados y simular flujos íntegros.
+    *   Servicios expuestos en puertos locales (`8081` para API, `3307` para BD) para validación asíncrona mediante clientes como Postman o Insomnia.
+
+### 3.5. Recursos
+
+Materiales, guías y recursos de terceros necesarios para la adopción e implementación operativa del sistema Crunch-Debt en un entorno real o local:
+
+*   **Guía de instalación o configuración:** 
+    *   **Vía Docker (Recomendado):** Requiere tener instalado Docker Desktop. Clonar el repositorio y ejecutar `docker compose up --build` en la terminal de la raíz del proyecto. El motor levantará automáticamente el Frontend, la API y la Base de Datos, resolviendo integraciones a través de la red de Docker.
+    *   **Variables de Entorno:** Parametrizables directamente en el `docker-compose.yml` (`DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`), permitiendo cambiar de ambiente (Dev/Prod) sin recompilar el código fuente.
+*   **Manual de usuario (Secuencia de Operación):**
+    1.  Abrir un navegador y acceder a la plataforma a través de la interfaz web en `http://localhost:8080`.
+    2.  Navegar a la sección de **Ventas** para registrar un nuevo Pedido vinculando un Cliente, y seguidamente procesar la Factura con estado Pendiente.
+    3.  Ir al módulo de **Cobranzas**, seleccionar la Factura y fraccionarla para generar una o más Letras, dependiendo de la condición crediticia.
+    4.  Visualizar el **Dashboard** principal para dar seguimiento a los vencimientos y registrar los pagos (conciliación) cuando se reciba confirmación bancaria (Planillas de Letras).
+*   **Otros recursos necesarios:**
+    *   **Control de Versiones:** Git y Repositorio en GitHub.
+    *   **IDE:** Visual Studio Code o IntelliJ IDEA para la manipulación y mantenimiento del código fuente.
+    *   **Administrador de Datos:** MySQL Workbench, DBeaver o DataGrip para la gestión directa de la base de datos MySQL local expuesta en el puerto dinámico `3307`.
+
 ---
+
 
 ## CONCLUSIONES
 

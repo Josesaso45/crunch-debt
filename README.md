@@ -23,37 +23,45 @@ Sistema integral para la automatización del ciclo de ventas y cobranzas, diseñ
 
 ## 🛠️ Cómo arrancar la aplicación
 
-### 1. Requisitos Previos
+### Opción A (Recomendada): Con Docker 🐳
+Esta opción arranca automáticamente la base de datos MySQL, el backend Java y el frontend React con las versiones correctas. Solo necesitas tener **Docker Desktop** instalado.
+
+1.  Abre una terminal en la raíz del proyecto.
+2.  Ejecuta el siguiente comando para construir y levantar todo:
+    ```sh
+    docker-compose up --build
+    ```
+3.  Acceso a los servicios:
+    - **Frontend:** `http://localhost:8080`
+    - **Backend (API):** `http://localhost:8081`
+    - **Base de Datos:** `localhost:3307` (Usuario: root, Contraseña: root)
+
+---
+
+### Opción B: Ejecución Manual
+#### 1. Requisitos Previos
 - Node.js (v18+)
 - Java JDK 17
-- Maven (opcional, se puede usar el wrapper `./mvnw`)
 - Servidor MySQL activo
 
-### 2. Configuración de la Base de Datos
+#### 2. Configuración de la Base de Datos
 1. Crea una base de datos llamada `crunch_debt` en tu servidor MySQL.
 2. Ejecuta el script de modelado: `supabase/migrations/Modelado_de_Datos_Mysql.sql`.
 
-### 3. Ejecutar el Backend (Java)
+#### 3. Ejecutar el Backend (Java)
 Navega a la carpeta del backend y arranca el servicio:
 ```sh
 cd backend
-# En Windows
-mvnw.cmd spring-boot:run
-# En Linux/Mac
-./mvnw spring-boot:run
+mvn spring-boot:run
 ```
-El backend estará disponible por defecto en `http://localhost:8080` (configurado en `application.properties`).
+*(Nota: Si no tienes Maven instalado, usa el IDE Eclipse/STS para ejecutarlo).*
 
-### 4. Ejecutar el Frontend (React)
-Desde la raíz del proyecto (donde se encuentra `package.json`):
+#### 4. Ejecutar el Frontend (React)
+Desde la raíz del proyecto:
 ```sh
-# Instalar dependencias (solo la primera vez)
-npm install
-
-# Iniciar servidor de desarrollo
+npm install --legacy-peer-deps
 npm run dev
 ```
-La aplicación web se abrirá usualmente en `http://localhost:5173`.
 
 ---
 

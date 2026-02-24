@@ -1,0 +1,37 @@
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: crunch_debt
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      # Opcional: cargar el script inicial automáticamente
+      - ./supabase/migrations/Modelado_de_Datos_Mysql.sql:/docker-entrypoint-initdb.d/init.sql
+
+  backend:
+    build: ./backend
+    restart: always
+    ports:
+      - "8081:8080"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=crunch_debt
+      - DB_USER=root
+      - DB_PASSWORD=root
+    depends_on:
+      - db
+
+  frontend:
+    build: .
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+
+volumes:
+  db_data:
